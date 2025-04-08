@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace API_REST.Data
+namespace API_REST.Model
 {
     public class Game
     {
@@ -15,6 +15,6 @@ namespace API_REST.Data
         [MaxLength(500)]
         public string Description { get; set; } = string.Empty;
         public string Developer { get; set; } = string.Empty;
-       //Mirar como hacer campo para imagen
+        //public BinaryData Image { get; set; }
     }
 }
