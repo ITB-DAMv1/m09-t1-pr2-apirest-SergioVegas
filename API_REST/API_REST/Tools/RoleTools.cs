@@ -13,6 +13,7 @@ namespace API_REST.Tools
 
             foreach (var rol in rols)
             {
+                
                 if (!await roleManager.RoleExistsAsync(rol))
                 {
                     await roleManager.CreateAsync(new IdentityRole(rol));
