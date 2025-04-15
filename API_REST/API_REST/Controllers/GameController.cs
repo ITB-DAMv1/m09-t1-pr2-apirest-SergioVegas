@@ -1,4 +1,5 @@
 ﻿using API_REST.Data;
+using API_REST.DTO;
 using API_REST.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,35 +16,37 @@ namespace API_REST.Controllers
         {
             _context = context;
         }
-        [Authorize]
+
+        
         [HttpGet("")]
-        public async Task<ActionResult<IEnumerable<Game>>> GetFilms()
+        public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
             return await _context.Games.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Game>> GetFilm(int id)
+        public async Task<ActionResult<Game>> GetGame(int id)
         {
-            var film = await _context.Games.FindAsync();
-            if (film == null)
+            var game = await _context.Games.FindAsync();
+            if (game == null)
             {
                 return NotFound();
             }
-            return film;
+            return game;
         }
+        [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Game>> PostFilm(FilmInsertDTO filmDTO)
+        public async Task<ActionResult<Game>> PostGame(GameDTO gameDTO)
         {
-            var film = new Game
+            var game = new Game
             {
-                Name = filmDTO.Name,
-                Description = filmDTO.Description,
-                DirectorId = filmDTO.DirectorId
+                Title = gameDTO.Title,
+                Description = gameDTO.Description,
+                Developer = gameDTO.Developer
             };
             try
             {
-                await _context.Games.AddAsync(film);
+                await _context.Games.AddAsync(game);
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -51,30 +54,30 @@ namespace API_REST.Controllers
                 return BadRequest(ex.Message);
 
             }
-            return CreatedAtAction(nameof(GetFilm), new { id = film.Id }, film);
+            return CreatedAtAction(nameof(GetGame), new { id = game.Id }, game);
         }
 
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteFilm(int id)
+        public async Task<IActionResult> DeleteGame(int id)
         {
-            var film = await _context.Games.FindAsync(id);
+            var game = await _context.Games.FindAsync(id);
 
-            if (film == null)
+            if (game == null)
             {
-                return NotFound("Film no encontado");
+                return NotFound("Joc no trobat");
             }
-            _context.Games.Remove(film);
+            _context.Games.Remove(game);
             await _context.SaveChangesAsync();
             return NoContent();
         }
         [HttpPut("put/{id}")]
-        public async Task<IActionResult> PutFilm(Game film, int id)
+        public async Task<IActionResult> PutGame(Game game, int id)
         {
-            if (film.Id != id)
+            if (game.Id != id)
             {
                 return BadRequest();
             }
-            _context.Entry(film).State = EntityState.Modified;
+            _context.Entry(game).State = EntityState.Modified;
 
             try
             {
@@ -82,7 +85,7 @@ namespace API_REST.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!FilmExists(id))
+                if (!GameExists(id))
                 {
                     return NotFound();
                 }
@@ -93,7 +96,7 @@ namespace API_REST.Controllers
             }
             return NoContent();
         }
-        private bool FilmExists(int id)
+        private bool GameExists(int id)
         {
             return _context.Games.Any(e => e.Id == id);
         }

@@ -15,7 +15,7 @@ namespace API_REST.Model
         [MaxLength(500)]
         public string Description { get; set; } = string.Empty;
         public string Developer { get; set; } = string.Empty;
-        public List<ApplicationUser> Users { get; set; }
+        public virtual ICollection<ApplicationUser> Users { get; set; }
         //public BinaryData Image { get; set; }
     }
 }

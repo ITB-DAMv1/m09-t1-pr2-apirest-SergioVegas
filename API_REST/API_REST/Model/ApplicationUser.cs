@@ -4,6 +4,6 @@ namespace API_REST.Model
 {
     public class ApplicationUser : IdentityUser
     {
-        public List<Game> GamesU { get; set; }
+        public virtual ICollection<Game> GamesU { get; set; }
     }
 }

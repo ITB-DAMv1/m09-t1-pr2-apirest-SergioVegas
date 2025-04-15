@@ -1,4 +1,5 @@
 ﻿using API_REST.Model;
+using Azure;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -13,14 +14,17 @@ namespace API_REST.Data
 
         }
         public DbSet<Game> Games { get; set; }
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Game>()
-         .HasMany(e => e.Users)
-         .WithMany(e => e.GamesU);
+            .HasMany(e => e.Users)
+            .WithMany(e => e.GamesU);
+
+            modelBuilder.Entity<ApplicationUser>()
+           .HasMany(e => e.GamesU)
+           .WithMany(e => e.Users);
         }
     }
 }
