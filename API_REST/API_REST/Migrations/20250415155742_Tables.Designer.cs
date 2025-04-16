@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_REST.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250415094019_Tables")]
+    [Migration("20250415155742_Tables")]
     partial class Tables
     {
         /// <inheritdoc />

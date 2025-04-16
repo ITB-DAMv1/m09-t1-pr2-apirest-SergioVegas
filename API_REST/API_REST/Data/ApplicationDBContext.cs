@@ -14,6 +14,7 @@ namespace API_REST.Data
 
         }
         public DbSet<Game> Games { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

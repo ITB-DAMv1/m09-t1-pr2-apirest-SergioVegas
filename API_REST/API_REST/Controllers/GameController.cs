@@ -34,7 +34,7 @@ namespace API_REST.Controllers
             }
             return game;
         }
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Game>> PostGame(GameDTO gameDTO)
         {
@@ -56,7 +56,7 @@ namespace API_REST.Controllers
             }
             return CreatedAtAction(nameof(GetGame), new { id = game.Id }, game);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteGame(int id)
         {
@@ -70,6 +70,7 @@ namespace API_REST.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+        [Authorize(Roles = "Admin")]
         [HttpPut("put/{id}")]
         public async Task<IActionResult> PutGame(Game game, int id)
         {
