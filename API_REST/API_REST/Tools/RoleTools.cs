@@ -9,7 +9,7 @@ namespace API_REST.Tools
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            string[] rols = { "Admin", "Editor" };
+            string[] rols = { "Admin" };
 
             foreach (var rol in rols)
             {
