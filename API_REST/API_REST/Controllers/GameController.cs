@@ -27,10 +27,10 @@ namespace API_REST.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetGame(int id)
         {
-            var game = await _context.Games.FindAsync();
+            var game = await _context.Games.FindAsync(id);
             if (game == null)
             {
-                return NotFound();
+                return NotFound("No s'ha trobat aquest joc.");
             }
             return game;
         }
