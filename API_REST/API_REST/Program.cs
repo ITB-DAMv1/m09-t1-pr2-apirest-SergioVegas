@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using API_REST.Tools;
+using API_REST.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -100,7 +101,19 @@ builder.Services.AddSwaggerGen(opt =>
                     }
                 });
 });
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("https://localhost:7299");
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+        policy.AllowCredentials();
+    }
+    );
+});
 
+builder.Services.AddSignalR();
 //********
 var app = builder.Build();
 //*******
@@ -131,4 +144,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors();
+app.MapHub<Xat>("/xat");
 app.Run();
