@@ -1,18 +1,18 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "ITB Game Jam 2025";
 
     var loggedIn = Tools.TokenHelper.IsTokenSession(HttpContext.Session.GetString("AuthToken"));
 }
 
 <div class="text-center">
-    <h1 class="display-4">Benvinguts en aquest client de l'API de Pelis!</h1>
+    <h1 class="display-4">Videojocs votats!</h1>
 </div>
 <div>
     @if (!Model.Games.Any())
     {
-        <p>No s'han trobat pel·lícules.</p>
+        <p>No s'han trobat jocs.</p>
     }
     else
     {
@@ -20,8 +20,9 @@
             <thead>
                 <tr>
                     <th>Títol</th>
-                    <th>Descripcio</th>
-                    <th>Director</th>
+                    <th>Descripció</th>
+                    <th>Desenvolupadors</th>
+                    <th>Número de vots</th>
                 </tr>
             </thead>
             <tbody>
