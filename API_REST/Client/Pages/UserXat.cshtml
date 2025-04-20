@@ -1,0 +1,47 @@
+﻿@page
+@model Client.Pages.UserXatModel
+@{
+    ViewData["Title"] = "Xat en temps real";
+}
+
+<h2>Xat en temps real</h2>
+
+<label for="usuari">Nom:</label>
+<input id="usuari" placeholder="Nom d'usuari" />
+<br />
+
+<label for="missatge">Missatge:</label>
+<input id="missatge" placeholder="Escriu un missatge" />
+<button onclick="enviaMissatge()">Envia</button>
+
+<ul id="missatges"></ul>
+@section Scripts {
+	<script src="~/js/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        // Crear connexió amb el Hub al servidor extern
+        const connexio = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7222/UserXat")
+            .withAutomaticReconnect()
+            .build();
+
+        // Escoltar missatges entrants del servidor
+        connexio.on("RepMissatge", (usuari, missatge) => {
+            const entrada = document.createElement("li");
+            entrada.textContent = `${usuari}: ${missatge}`;
+            document.getElementById("missatges").appendChild(entrada);
+        });
+
+        // Iniciar la connexió
+        connexio.start()
+            .then(() => console.log("Connectat a SignalR"))
+            .catch(err => console.error("Error de connexió:", err));
+
+        // Enviar missatge al servidor
+        function enviaMissatge() {
+            const usuari = document.getElementById("usuari").value;
+            const missatge = document.getElementById("missatge").value;
+            connexio.invoke("SendMessage", usuari, missatge)
+                .catch(err => console.error("Error en enviar:", err));
+        }
+    </script>
+    }
