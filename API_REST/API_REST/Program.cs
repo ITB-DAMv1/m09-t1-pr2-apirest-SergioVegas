@@ -145,5 +145,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.UseCors();
-app.MapHub<Xat>("/xat");
+app.MapHub<Xat>("/UserXat");
 app.Run();
