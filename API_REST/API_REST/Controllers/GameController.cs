@@ -21,7 +21,18 @@ namespace API_REST.Controllers
         [HttpGet("")]
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
-            return await _context.Games.ToListAsync();
+            var games = await _context.Games
+                                  .Include(g => g.Users) // Incluye la relación Users para contar los votos
+                                  .ToListAsync();
+            var gameDTOs = games.Select(game => new GameDTO
+            {
+                Title = game.Title,
+                Description = game.Description,
+                Developer = game.Developer,
+                VoteCount = game.Users.Count() // Calcula el número de votos
+            }).ToList();
+
+            return Ok(gameDTOs); // Retorna la lista de GameDTOs
         }
 
         [HttpGet("{id}")]

@@ -2,9 +2,56 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+
+    var loggedIn = Tools.TokenHelper.IsTokenSession(HttpContext.Session.GetString("AuthToken"));
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Benvinguts en aquest client de l'API de Pelis!</h1>
+</div>
+<div>
+    @if (!Model.Games.Any())
+    {
+        <p>No s'han trobat pel·lícules.</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Títol</th>
+                    <th>Descripcio</th>
+                    <th>Director</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var game in Model.Games)
+                {
+                    <tr>
+                        <td>@game.Title</td>
+                        <td>@game.Description</td>
+                        <td>@game.Developer </td>
+                        <td>@game.VoteCount </td>
+                        <td>
+                            @if (loggedIn)
+                            {
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@game.Id" class="d-inline">
+                                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary btn-sm" disabled title="Només per usuaris autenticats">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
 </div>
