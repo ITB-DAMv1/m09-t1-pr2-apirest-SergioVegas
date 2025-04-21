@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "g0FbhzVSYtg=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Sergio.V\\Source\\Repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sergio.V\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.1\\microsoft.aspnetcore.openapi.9.0.1.nupkg.sha512",
+    "C:\\Users\\Sergio.V\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
