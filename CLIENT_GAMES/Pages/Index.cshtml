@@ -1,10 +1,163 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "ITB Game Jam 2025 - Votacions";
+    var loggedIn = Tools.TokenHelper.IsTokenSession(HttpContext.Session.GetString("AuthToken"));
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    body {
+        background: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
+        background-attachment: fixed;
+        padding-top: 20px;
+        padding-bottom: 40px;
+    }
+
+    .game-card {
+        background-color: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .game-card .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card .card-title {
+            color: #0056b3;
+            font-weight: bold;
+        }
+
+        .game-card .card-footer {
+            background-color: transparent;
+            border-top: none;
+            padding-top: 0;
+            margin-top: auto;
+            padding: 0.75rem 1.25rem; 
+        }
+
+    .vote-badge {
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+
+    .display-4 {
+        color: #333;
+        font-weight: 300;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-secondary[disabled] {
+        cursor: not-allowed;
+    }
+
+    
+    .card-footer .btn, .card-footer form {
+        margin-left: 0.5rem; 
+    }
+
+    .card-footer > *:first-child {
+        margin-left: 0; 
+    }
+
+</style>
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">Videojocs Votats</h1>
+        <p class="lead mb-5">Descobreix i vota els jocs més populars de la Jam!</p>
+    </div>
+
+    @if (!Model.Games.Any())
+    {
+        <div class="alert alert-info text-center" role="alert">
+            <i class="bi bi-info-circle-fill me-2"></i>Encara no s'ha votat cap joc.
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var game in Model.Games)
+            {
+                <div class="col">
+                    <div class="card game-card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">@game.Title</h5>
+                            <p class="card-text text-muted mb-2">
+                                <i class="bi bi-people-fill me-1"></i> <strong>Desenvolupadors:</strong> @game.Developer
+                            </p>
+                            <p class="card-text mb-4">
+                                <i class="bi bi-hand-thumbs-up-fill me-1 text-success"></i> <strong>Vots:</strong>
+                                <span class="badge bg-success rounded-pill vote-badge ms-1">@game.VoteCount</span>
+                            </p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-end align-items-center">
+                            @if (Model.IsUserLoggedIn) 
+                            {
+                                    <form method="post" asp-page-handler="RemoveVote" asp-route-id="@game.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm" title="Treure vot">
+                                            <i class="bi bi-hand-thumbs-down"></i> Treure Vot
+                                        </button>
+                                    </form>
+ 
+                                    <form method="post" asp-page-handler="AddVote" asp-route-id="@game.Id" class="d-inline">
+                                        <button type="submit" class="btn btn-outline-success btn-sm" title="Afegir vot">
+                                            <i class="bi bi-hand-thumbs-up"></i> Votar
+                                        </button>
+                                    </form>                               
+                            }
+                            else
+                            {     
+                                <button class="btn btn-outline-secondary btn-sm" disabled title="Votar (Només usuaris registrats)">
+                                    <i class="bi bi-hand-thumbs-up"></i> Votar
+                                </button>
+                            }
+                            <a asp-page="./DetailsGame" asp-route-id="@game.Id" class="btn btn-outline-primary btn-sm" title="Veure Detalls">
+                                <i class="bi bi-search"></i> Detalls
+                            </a>                      
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
 </div>
+
+@section Scripts {
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+            function getCookie(name) {
+            let cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return null;
+        }
+
+        // Guardar el token en localStorage
+        const token = getCookie("jwtToken");
+        if (token) {
+            localStorage.setItem("jwtToken", token);
+            document.cookie = "jwtToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            console.log("Token almacenado en localStorage!");
+        }
+    </script>
+}
