@@ -1,0 +1,18 @@
+﻿@page
+@model CLIENT_GAMES.Pages.ProfileModel
+@{
+    ViewData["Title"] = "El meu perfil";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">¡Benvingude !</h4>
+    <p>Nom d'usuari': <strong>@Model.CurrentUserName</strong></p>
+    <hr>
+    <p class="mb-0">Has iniciat sessió correctament!</p>
+</div>
+
+
+    
+
