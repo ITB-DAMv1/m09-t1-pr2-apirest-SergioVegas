@@ -1,10 +1,10 @@
-using Client.Model;
+using CLIENT_GAMES.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Client.Pages
+namespace CLIENT_GAMES.Pages
 {
     public class LoginModel : PageModel
     {

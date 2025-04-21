@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Client.Model
+namespace CLIENT_GAMES.Model
 {
     public class RegisterDTO
     {

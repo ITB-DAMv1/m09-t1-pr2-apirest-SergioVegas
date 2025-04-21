@@ -1,4 +1,4 @@
-using Client.Model;
+using CLIENT_GAMES.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
