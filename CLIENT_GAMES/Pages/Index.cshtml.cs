@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace Client.Pages
+namespace CLIENT_GAMES.Pages
 {
     public class IndexModel : PageModel
     {

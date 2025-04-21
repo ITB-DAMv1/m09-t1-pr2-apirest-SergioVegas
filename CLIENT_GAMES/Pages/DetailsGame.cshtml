@@ -1,0 +1,142 @@
+﻿@page
+@model CLIENT_GAMES.Pages.DetailsGameModel
+@{
+    ViewData["Title"] = Model.Game != null ? $"Detalls: {Model.Game.Title}" : "Detalls del Videojoc";
+}
+
+<style>
+    .details-card {
+        background-color: #ffffff;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin-top: 2rem;
+    }
+
+        .details-card .card-body {
+            padding: 2rem;
+        }
+
+        .details-card .game-image {
+            max-height: 450px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .details-card .game-title {
+            color: #0056b3;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .details-card dt {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0.3rem;
+        }
+
+        .details-card dd {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .details-card .vote-count-badge {
+            font-size: 1.1em;
+            font-weight: bold;
+            vertical-align: middle;
+        }
+
+    .image-placeholder {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 250px;
+        width: 100%;
+        color: #6c757d;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+
+    @@media (min-width: 768px) {
+        .details-card .game-image {
+            margin-bottom: 0;
+        }
+
+        .image-placeholder {
+            margin-bottom: 0;
+            min-height: 300px;
+        }
+    }
+
+</style>
+
+<div class="container mt-4">
+
+    @if (Model.Game == null)
+    {
+        <div class="alert alert-warning text-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> No s'han trobat els detalls del joc sol·licitat.
+        </div>
+        <div class="text-center">
+            <a asp-page="./Index" class="btn btn-secondary mt-3">
+                <i class="bi bi-arrow-left"></i> Torna a la llista
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="text-center mb-4">
+            <h1 class="display-5">@Model.Game.Title</h1>
+        </div>
+
+        <div class="mb-3">
+            <a asp-page="./Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Torna a la llista
+            </a>
+        </div>
+
+        <div class="card details-card">
+            <div class="card-body">
+                <div class="row g-4">
+
+                    <div class="col-md-5 d-flex align-items-center">
+                        @if (!string.IsNullOrEmpty(Model.Game.Image))
+                        {
+                            <img src="@Model.Game.Image"
+                                 alt="Imatge de @Model.Game.Title"
+                                 class="game-image img-fluid" />
+                        }
+                        else
+                        {
+                            <div class="image-placeholder">
+                                <span>(Sense imatge disponible)</span>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="col-md-7">
+                        <dl>
+                            <dt>Descripció</dt>
+                            <dd>@Model.Game.Description</dd>
+
+                            <dt>Desenvolupadors</dt>
+                            <dd>@Model.Game.Developer</dd>
+
+                            <dt>Número de vots</dt>
+                            <dd>
+                                <span class="badge bg-success rounded-pill vote-count-badge">
+                                    <i class="bi bi-hand-thumbs-up-fill me-1"></i> @Model.Game.VoteCount
+                                </span>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
