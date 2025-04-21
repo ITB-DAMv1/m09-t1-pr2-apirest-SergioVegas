@@ -1,0 +1,207 @@
+﻿@page
+@model CLIENT_GAMES.Pages.UserXatModel
+@{
+    ViewData["Title"] = "Xat en Temps Real";
+}
+
+<style>
+    .chat-container {
+        max-width: 800px;
+        margin: 2rem auto;
+    }
+
+    .chat-card {
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border: none;
+        height: 70vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+        .chat-card .card-header {
+            background-color: #6f42c1;
+            color: white;
+            text-align: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,.125);
+        }
+
+            .chat-card .card-header h2 {
+                margin-bottom: 0;
+                font-weight: 400;
+                font-size: 1.5rem;
+            }
+
+    .chat-messages {
+        flex-grow: 1;
+        overflow-y: auto;
+        padding: 1.5rem;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+        .chat-messages ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chat-messages li {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 1rem;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            word-wrap: break-word;
+        }
+
+            .chat-messages li strong {
+                color: #007bff;
+            }
+
+    .chat-input-area {
+        padding: 1rem 1.5rem;
+        background-color: #ffffff;
+    }
+
+        .chat-input-area .input-group .form-control {
+            border-right: 0;
+        }
+
+        .chat-input-area .input-group .btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+    .form-control:focus {
+        border-color: #6f42c1;
+        box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+    }
+
+    .btn-send {
+        background-color: #6f42c1;
+        border-color: #6f42c1;
+        color: white;
+    }
+
+        .btn-send:hover {
+            background-color: #5a32a3;
+            border-color: #512e94;
+        }
+</style>
+
+<div class="chat-container">
+    <div class="card chat-card">
+        <div class="card-header">
+            <h2><i class="bi bi-chat-right-dots-fill me-2"></i>@ViewData["Title"]</h2>
+        </div>
+
+        <div class="chat-messages">
+            <ul id="missatges">
+            </ul>
+        </div>
+
+        <div class="chat-input-area">
+            <div class="input-group">
+                <input type="text" id="missatge" class="form-control" placeholder="Escriu un missatge..." aria-label="Missatge" aria-describedby="button-send" disabled>
+                <button class="btn btn-send" type="button" id="button-send" onclick="enviaMissatge()" disabled>
+                    <i class="bi bi-send-fill"></i> Envia
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        const token = localStorage.getItem("jwtToken");
+        const chatMessagesContainer = document.getElementById("missatges");
+        const messageInput = document.getElementById("missatge");
+        const sendButton = document.getElementById("button-send");
+
+        const connexio = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7222/UserXat", {
+                accessTokenFactory: () => token
+            })
+            .withAutomaticReconnect()
+            .build();
+
+        function formatMessage(usuari, missatge) {
+            const currentUser = "@HttpContext.Session.GetString("UserName")";
+            const li = document.createElement("li");
+            const strong = document.createElement("strong");
+            strong.textContent = usuari + ": ";
+            li.appendChild(strong);
+            li.appendChild(document.createTextNode(missatge));
+
+            if(usuari === currentUser) {
+                li.style.backgroundColor = '#e7f3ff';
+                li.style.textAlign = 'right';
+            } else {
+                 li.style.backgroundColor = '#ffffff';
+            }
+            return li;
+        }
+
+         function scrollToBottom() {
+             chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+        }
+
+        connexio.on("RepMissatge", (usuari, missatge) => {
+            const entrada = formatMessage(usuari, missatge);
+            chatMessagesContainer.appendChild(entrada);
+            scrollToBottom();
+        });
+
+        connexio.start()
+            .then(() => {
+                 console.log("Connectat a SignalR");
+                 messageInput.disabled = false;
+                 sendButton.disabled = false;
+                 messageInput.focus();
+            })
+            .catch(err => {
+                console.error("Error de connexió:", err);
+                const errorLi = document.createElement("li");
+                errorLi.textContent = "Error de connexió amb el xat.";
+                errorLi.style.color = 'red';
+                errorLi.style.fontStyle = 'italic';
+                chatMessagesContainer.appendChild(errorLi);
+                messageInput.disabled = true;
+                sendButton.disabled = true;
+            });
+
+        function enviaMissatge() {
+            const usuari = "@HttpContext.Session.GetString("UserName")";
+            const missatge = messageInput.value.trim();
+
+            if (!usuari) {
+                 console.error("Nom d'usuari no trobat a la sessió.");
+                 alert("Error: No s'ha pogut identificar l'usuari.");
+                 return;
+            }
+
+            if (missatge) {
+                connexio.invoke("SendMessage", usuari, missatge)
+                    .then(() => {
+                        messageInput.value = "";
+                        messageInput.focus();
+                    })
+                    .catch(err => console.error("Error en enviar:", err));
+            } else {
+                 console.log("Intent d'enviar missatge buit.");
+            }
+        }
+
+        messageInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                sendButton.click();
+            }
+        });
+
+    </script>
+}
