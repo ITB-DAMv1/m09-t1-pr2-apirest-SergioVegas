@@ -1,6 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 
-namespace Client.Tools
+namespace CLIENT_GAMES.Tools
 {
     public static class TokenHelper
     {
