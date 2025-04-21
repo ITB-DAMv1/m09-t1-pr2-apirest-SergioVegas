@@ -1,4 +1,4 @@
-﻿namespace Client.Model
+﻿namespace CLIENT_GAMES.Model
 {
     public class GameDTO
     {

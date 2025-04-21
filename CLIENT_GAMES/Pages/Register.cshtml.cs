@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json;
 using System.Text;
-using Client.Model;
+using CLIENT_GAMES.Model;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 
-namespace Client.Pages
+namespace CLIENT_GAMES.Pages
 {
     public class RegisterModel : PageModel
     {
