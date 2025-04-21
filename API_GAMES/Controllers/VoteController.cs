@@ -1,10 +1,10 @@
-﻿using API_REST.Data;
+﻿using API_GAMES.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
-namespace API_REST.Controllers
+namespace API_GAMES.Controllers
 {
     [ApiController]
     [Route("api/Votes")]

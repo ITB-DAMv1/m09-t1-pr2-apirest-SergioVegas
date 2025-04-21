@@ -1,4 +1,4 @@
-﻿namespace API_REST.DTO
+﻿namespace API_GAMES.DTO
 {
     public class LoginDTO
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace API_REST.Model
+namespace API_GAMES.Model
 {
     public class Game
     {

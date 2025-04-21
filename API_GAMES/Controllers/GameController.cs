@@ -1,11 +1,11 @@
-﻿using API_REST.Data;
-using API_REST.DTO;
-using API_REST.Model;
+﻿using API_GAMES.Data;
+using API_GAMES.DTO;
+using API_GAMES.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace API_REST.Controllers
+namespace API_GAMES.Controllers
 {
     [Route("api/Games")]
     [ApiController]

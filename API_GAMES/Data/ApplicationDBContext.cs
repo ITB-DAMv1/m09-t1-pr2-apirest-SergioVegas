@@ -1,11 +1,11 @@
-﻿using API_REST.Model;
+﻿using API_GAMES.Model;
 using Azure;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 
-namespace API_REST.Data
+namespace API_GAMES.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

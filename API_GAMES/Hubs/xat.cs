@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
 
-namespace API_REST.Hubs
+namespace API_GAMES.Hubs
 {
     [Authorize]
     public class Xat : Hub

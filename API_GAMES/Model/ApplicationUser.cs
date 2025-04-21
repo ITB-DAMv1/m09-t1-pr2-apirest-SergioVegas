@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace API_REST.Model
+namespace API_GAMES.Model
 {
     public class ApplicationUser : IdentityUser
     {

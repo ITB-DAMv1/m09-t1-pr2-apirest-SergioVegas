@@ -1,5 +1,5 @@
-﻿using API_REST.DTO;
-using API_REST.Model;
+﻿using API_GAMES.DTO;
+using API_GAMES.Model;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace API_REST.Controllers
+namespace API_GAMES.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
@@ -80,26 +80,7 @@ namespace API_REST.Controllers
             }
 
             return Ok(CreateToken(claims.ToArray()));
-        }
-        [Authorize]
-        [HttpGet("perfil")]
-        public async Task<IActionResult> GetUserProfile()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null) return Unauthorized();
-
-            var usuari = await _userManager.FindByIdAsync(userId);
-            if (usuari == null) return NotFound("Usuari no trobat");
-
-            var roles = await _userManager.GetRolesAsync(usuari);
-
-            return Ok(new
-            {
-                Nombre = usuari.UserName,
-                Email = usuari.Email,
-                Rol = roles.FirstOrDefault() ?? "Usuari"
-            });
-        }
+        } 
         private string CreateToken(Claim[] claims)
         {
             // Carreguem les dades des del appsettings.json

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sergio.V\\Source\\Repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj": {}
+    "C:\\Users\\Sergio.V\\source\\repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sergio.V\\Source\\Repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj": {
+    "C:\\Users\\Sergio.V\\source\\repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sergio.V\\Source\\Repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj",
+        "projectUniqueName": "C:\\Users\\Sergio.V\\source\\repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj",
         "projectName": "API_GAMES",
-        "projectPath": "C:\\Users\\Sergio.V\\Source\\Repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj",
+        "projectPath": "C:\\Users\\Sergio.V\\source\\repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\API_GAMES.csproj",
         "packagesPath": "C:\\Users\\Sergio.V\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sergio.V\\Source\\Repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\obj\\",
+        "outputPath": "C:\\Users\\Sergio.V\\source\\repos\\m09-t1-pr2-apirest-SergioVegas\\API_GAMES\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,9 +50,53 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Microsoft.AspNet.SignalR": {
+              "target": "Package",
+              "version": "[2.4.3, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
-              "version": "[9.0.1, )"
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.8.0, )"
             }
           },
           "imports": [
