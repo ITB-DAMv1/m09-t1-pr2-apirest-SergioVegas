@@ -1,4 +1,9 @@
+# Descripció del Projecte
+
+Aquest projecte consisteix en una aplicació web completa desenvolupat en .NET, que inclou una API REST i un client que utilitza aquesta API. El projecte està dissenyat per gestionar un catàleg de videojocs, permetre als usuaris registrar-se, iniciar sessió, votar els jocs i comunicar-se mitjançant un xat.
+
 # Esquema de l’estructura de cada projecte.
+
 ## 🗂 API_GAMES (Projecte de la API)
 
 📂 Model/ → Definició d’entitats (Game, ApplicationUser).
