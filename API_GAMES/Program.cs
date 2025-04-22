@@ -140,6 +140,12 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     await API_GAMES.Tools.RoleTools.CrearRolsInicials(services);
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userSeeder = new UserSeed(userManager, roleManager);
+    await userSeeder.SeedAsync();
+    DbInitializer.Seed(dbContext);
 }
 
 // Configure the HTTP request pipeline.
