@@ -1,5 +1,5 @@
 # Esquema de l’estructura de cada projecte.
-🗂 API_GAMES (Projecte de la API)
+## 🗂 API_GAMES (Projecte de la API)
 
 📂 Model/ → Definició d’entitats (Game, ApplicationUser).
 
@@ -13,7 +13,7 @@
 
 📂 Hubs/ → Xat.cs per la implementació de SignalR.
 
-🗂 Client (Web o Razor Pages)
+## 🗂 Client (Web o Razor Pages)
 
 📂 Services/ → GameFetcher.cs per consumir la API.
 
