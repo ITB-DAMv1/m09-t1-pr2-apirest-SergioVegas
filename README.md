@@ -1,1 +1,22 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/WZovCNvQ)
+# Esquema de l’estructura de cada projecte.
+🗂 API_GAMES (Projecte de la API)
+
+📂 Model/ → Definició d’entitats (Game, ApplicationUser).
+
+📂 Data/ → ApplicationDbContext.cs per gestionar la base de dades.
+
+📂 Controllers/ → Controladors per a jocs i autenticació (GamesController, AuthController).
+
+📂 Seed/ → UserSeeder.cs i GameSeeder.cs per inicialitzar dades.
+
+📂 Tools/ → RoleTools.cs per gestionar rols d’usuaris.
+
+📂 Hubs/ → Xat.cs per la implementació de SignalR.
+
+🗂 Client (Web o Razor Pages)
+
+📂 Services/ → GameFetcher.cs per consumir la API.
+
+📂 Pages/ → Games.cshtml, Profile.cshtml per mostrar jocs i info d’usuaris.
+
+📂 Models/ → Game.cs per representar els jocs al client.
